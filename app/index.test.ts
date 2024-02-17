@@ -3,13 +3,14 @@ import * as redis from "redis";
 
 import { App } from "supertest/types";
 import { RedisClient, createApp } from "./app";
-import { after } from "node:test";
+
+const REDIS_URL = "redis://default:test_env@localhost:6380";
 
 let app: App;
 let client: RedisClient;
 
 beforeAll(async () => {
-  client = redis.createClient({ url: "redis://localhost:6379" });
+  client = redis.createClient({ url: REDIS_URL });
   await client.connect();
 
   app = createApp(client);
